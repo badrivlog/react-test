@@ -3,6 +3,7 @@ import classes from './Layout.css';
 import Auxe from '../../Hoc/Auxe';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
+import {connect} from 'react-redux';
 
 
 
@@ -25,11 +26,16 @@ class Layout extends Component {
     render(){
         return(
             <Auxe>
-            <Toolbar sidedraweToggle={this.sideDrawertoggleHandler} />
-            <SideDrawer show={this.state.showSideDrawer} close={this.backdropCloseHandler} />
+            <Toolbar isAuth={this.props.isAthenticate} sidedraweToggle={this.sideDrawertoggleHandler} />
+            <SideDrawer isAuth={this.props.isAthenticate} show={this.state.showSideDrawer} close={this.backdropCloseHandler} />
             <main className={classes.Content}> {this.props.children} </main>
             </Auxe>
         )
     }
-}
-export default Layout;
+};
+const mapStateToProps = state => {
+    return {
+        isAthenticate: state.auth.idToken !== null
+    }
+} 
+export default connect(mapStateToProps) (Layout);

@@ -1,13 +1,18 @@
 import React, {Component} from 'react';
-import {Route} from 'react-router-dom';
+import {Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import CheckoutSummery from '../../components/Order/CheckoutSummery/CheckoutSummery';
 import ContactData from './ContactData/ContactData';
+import * as actions from '../../store/actions/index';
 
 class Checkout extends Component {
     state = {
         totalPrice: 0
     };
+
+// componentWillMount(){
+//     this.props.onInitPurchased();
+// }
 
     // componentDidMount(){
     //     console.log(this.props);
@@ -33,23 +38,33 @@ class Checkout extends Component {
         this.props.history.replace('/checkout/contact-data')
     }
     render () {
-        return(
-            <div>
+
+            let summery = <Redirect to="/" />;
+            if(this.props.ings){
+                const purchaseRedirect = this.props.purchaseBurger ? <Redirect to="/" />: null;
+             summery = (
+                 <div>
+                 {purchaseRedirect}
                 <CheckoutSummery ingredients={this.props.ings}
                 checkoutCancelled={this.checkoutCancelHandler}
                 ckeckoutContinued={this.checkoutContinueHandler} />
                 <Route path={this.props.match.path + '/contact-data'} 
                 component={ContactData} />
-            </div>
-        );
+                 </div>
+             )
+            }
+
+        return summery;
     }
 };
 
 const mapStateToProps = state => {
     return {
-        ings: state.burgerBuilder.ingredients
+        ings: state.burgerBuilder.ingredients,
+        purchaseBurger: state.orders.purchased
     };
 };
+
 
 
 export default connect(mapStateToProps)(Checkout);

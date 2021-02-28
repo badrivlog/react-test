@@ -5,9 +5,13 @@ export {
 } from './burgerBulder';
 export {
     orderBurgerStart,
-    orderFetch
+    orderFetch,
+    initPurchase
 } from './order';
 
 export {
-    auth
+    auth,
+    logout,
+    checkAuthState,
+    setAuthRedirectPath
 } from './auth';

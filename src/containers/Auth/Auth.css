@@ -11,6 +11,10 @@
   display: block;
 }
 
+.SignUp {
+  color: green;
+}
+
 @media (min-width: 600px) {
   .Auth {
     width: 500px;

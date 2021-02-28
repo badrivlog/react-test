@@ -1,6 +1,7 @@
 import React from 'react';
 
 import classes from "./BuildControl.css";
+import AddBoxIcon from '@material-ui/icons/AddBox';
 
 const buildControl =(props)=> {
     return (
@@ -9,7 +10,7 @@ const buildControl =(props)=> {
             <button className={classes.Less}
              onClick={props.remove}
             disabled={props.disabled} >Less</button>
-            <button className={classes.More}onClick={props.added}>More</button>
+            <button onClick={props.added} className={classes.More}>More</button>
         </div>
     )
 }
